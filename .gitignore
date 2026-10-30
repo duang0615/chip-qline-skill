@@ -1,0 +1,7 @@
+.env
+*.credentials
+.venv/
+*.log
+__pycache__/
+vendor/
+*.whl
