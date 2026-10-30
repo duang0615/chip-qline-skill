@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>籌碼 Q 線｜教學工作台</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<header><div class="brand"><span class="brand-icon">Q</span><strong>籌碼 Q 線</strong><span class="edition">教學版</span></div><div class="header-note">從選股訊號，到籌碼觀察。</div><div class="connection"><i id="status-dot"></i><span id="status">正在連接雪鴞…</span></div><button id="help-btn" class="quiet">使用說明</button></header>
+<div class="workspace">
+<aside class="sidebar">
+ <div class="section-label">STRATEGY LAB <span>01</span></div><h2>選股策略</h2><p class="muted">設定條件，找出值得觀察的訊號。</p>
+ <label class="field-label" for="mode">資料來源</label><select id="mode"><option value="live">雪鴞 · 真實歷史資料</option><option value="demo">教學示範 · 模擬資料</option></select>
+ <button id="toggle-settings" class="settings-toggle" aria-expanded="true">策略條件 <span>收合 −</span></button><div id="settings">
+ <div class="rules">
+  <label class="rule"><input type="checkbox" value="foreign" checked><span><b>外資連續買超</b><small>觀察外資買盤是否延續</small></span><em>01</em></label>
+  <label class="rule"><input type="checkbox" value="trust"><span><b>投信連續買超</b><small>觀察投信資金動向</small></span><em>02</em></label>
+  <label class="rule"><input type="checkbox" value="main"><span><b>主力連續買超</b><small>觀察主力買盤累積</small></span><em>03</em></label>
+  <label class="rule"><input type="checkbox" value="breakout"><span><b>收盤突破前 20 日高點</b><small>與籌碼條件交叉觀察</small></span><em>04</em></label>
+ </div>
+ <div class="form-grid"><label>連續天數<select id="days"><option value="1">1 個交易日</option><option value="3" selected>3 個交易日</option><option value="5">5 個交易日</option><option value="10">10 個交易日</option></select></label><label>最低成交量<input id="min-volume" type="number" min="0" step="500" value="1000"><small>張／日</small></label></div>
+ <label class="field-label" for="asof">觀察日期</label><input id="asof" type="date"><small class="date-note">休市日採前一交易日；多條件同時成立（AND）。</small>
+ </div><button id="run" class="primary">▶　啟動選股策略</button>
+ <div class="results-head"><b>符合訊號個股 <span id="count">—</span></b><button id="export" class="text-btn" disabled>匯出 CSV ↗</button></div>
+ <input id="filter" type="search" placeholder="搜尋篩選結果：代號或名稱" aria-label="搜尋篩選結果">
+ <div id="results" class="results"><div class="empty"><span>⌕</span><b>準備好探索訊號了嗎？</b><p>啟動策略後，符合條件的個股<br>會顯示在這裡。</p></div></div>
+ <div class="sidebar-footer">雪鴞 Snowyowl <span>LOCAL WORKSPACE</span></div>
+</aside>
+<main>
+ <div id="banner" role="status">正在初始化資料連線，完成後即可啟動策略。</div>
+ <div class="main-top"><div><div class="section-label">CHIP OBSERVATORY <span>02</span></div><h1>個股籌碼觀察</h1></div><form id="search-form"><input id="symbol" placeholder="輸入股票代號" value="2330" aria-label="股票代號" pattern="[0-9]{4,6}"><button>查看 ↗</button></form></div>
+ <div class="stock-heading"><div><strong id="stock-name">—</strong><span id="stock-code" class="stock-code">等待資料</span><span class="tag" id="source-tag">雪鴞歷史資料</span></div><div class="quote"><strong id="stock-price">—</strong><span id="stock-change">—</span></div></div>
+ <div class="toolbar"><div class="tab-active">籌碼 Q 線</div><div class="legend"><span class="ma5">● MA5</span><span class="ma20">● MA20</span><span class="ma60">● MA60</span></div><div class="periods"><button data-period="40">2 月</button><button data-period="65" class="selected">3 月</button><button data-period="130">6 月</button><button data-period="250">1 年</button></div><div class="zoom-controls"><button id="zoom-in" title="放大 K 線" aria-label="放大 K 線">＋</button><button id="zoom-out" title="縮小 K 線" aria-label="縮小 K 線">−</button><button id="reset-chart" title="重設顯示期間">重設</button></div><button id="focus-btn" class="quiet" title="收合教學解說">投影模式 ⛶</button></div>
+ <div class="chart-area"><div class="chart-topline"><b id="hover-date">—</b><span id="ohlc">移動滑鼠，同步觀察同一天的價量與籌碼</span></div><div id="charts"><div class="chart-wait">正在準備 K 線與籌碼圖表…</div></div></div>
+ <div class="chart-guidance">滾輪縮放 · 按住圖表拖曳 · 拖曳分隔線調整副圖高度 <span>TradingView Lightweight Charts</span></div><footer><span>紅漲綠跌 · 紅買綠賣 · 資料單位：價格／元，數量／張</span><span id="data-range">—</span></footer>
+<div class="chart-attribution">TradingView Lightweight Charts™
+Copyright (с) 2025 <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView, Inc.</a> https://www.tradingview.com/</div></main>
+<aside class="inspector">
+ <div class="section-label">READ THE SIGNAL <span>03</span></div><h2>籌碼快照</h2><p id="snapshot-date" class="muted">最新交易日</p>
+ <div class="metric-feature"><small>主力買賣超</small><strong id="main-net">—</strong><span>張</span></div>
+ <div id="metrics" class="metrics"></div>
+ <div class="explain"><span class="eyebrow">CLASSROOM NOTE</span><h3>讓訊號回到圖上</h3><p>先看價格位置，再對照外資、投信與主力。不同參與者的方向是否一致？買盤有沒有延續？</p><ol><li>左側選擇策略並啟動</li><li>點擊符合訊號的個股</li><li>移動游標對照多個籌碼圖</li></ol></div>
+ <details open><summary>目前選股規則</summary><p id="rule-description">外資連續 3 個交易日買超，當日成交量至少 1,000 張。</p><p>股池：4 碼非 0 開頭代號（含 DR）。結果依當日成交量排序。此處「突破」以收盤價比較前 20 個交易日收盤價。</p></details>
+ <button id="retry" class="retry">↻ 重新連接雪鴞</button><p class="tiny">本工具用於課程觀察與規則示範。訊號代表條件成立，不代表未來報酬。</p>
+</aside></div>
+<dialog id="help"><button id="close-help" class="dialog-close">✕</button><div class="section-label">QUICK START</div><h2>一條清楚的觀察路徑</h2><p>① 勾選左側策略，設定連續天數、成交量與日期，再按「啟動選股策略」。</p><p>② 點擊下方個股，右側 K 線、籌碼圖及快照會一起更新。可用 ↑ ↓ 切換結果。</p><p>③ 在圖上移動滑鼠，同一條游標會對齊所有指標。可使用滾輪縮放、按住拖曳歷史資料；上方 ＋／− 可縮放，「重設」回復所選期間。拖曳副圖分隔線可調整高度。</p><p>④ 「投影模式」可收合右側解說，保留更大的圖表空間；「匯出 CSV」可保存當次篩選結果。</p><p>雪鴞連線未完成時，可以手動切換「教學示範」。示範資料為模擬數值，並非行情。</p></dialog>
+<script src="/static/vendor/lightweight-charts-5.2.1.js"></script><script src="/static/chip-chart.js"></script><script src="/static/app.js"></script></body></html>
